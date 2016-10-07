@@ -143,7 +143,23 @@ public:
       return (hasher(p.x()) ^ (hasher(p.y()) << 1));
     }
   };
-
+  void Normalize()
+  {
+    float abs = sqrt(m_x * m_x + m_y * m_y);
+    if (!EqualWithEps (abs, 0.0f))
+    {
+      m_x = m_x / abs;
+      m_y = m_y / abs;
+    }
+  }
+  bool EqualWithEpsX(float v) const
+  {
+    return EqualWithEps(m_x, v);
+  }
+  bool EqualWithEpsY(float v) const
+  {
+    return EqualWithEps(m_y, v);
+  }
 private:
 
   bool EqualWithEps(float v1, float v2) const
