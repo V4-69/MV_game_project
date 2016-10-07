@@ -15,7 +15,7 @@ public:
   Ray2D() = default;
 
   Ray2D(Ray2D const & obj)
-      : m_origin(obj.m_origin), m_direction(obj.m_direction)
+    : m_origin(obj.m_origin), m_direction(obj.m_direction)
   {
     m_direction.Normalize();
   }
@@ -78,7 +78,7 @@ public:
   {
     return m_direction;
   }
-
+  
 private:
   Point2D m_origin;
   Point2D m_direction;

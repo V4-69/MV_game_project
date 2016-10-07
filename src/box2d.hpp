@@ -21,7 +21,7 @@ public:
   }
 
   // Конструктор с параметрами.
-  Box2D(Point2D min, Point2D max)
+  Box2D(Point2D const & min, Point2D const & max)
     : m_min(min), m_max(max)
   {}
 
@@ -120,8 +120,6 @@ public:
   }
 
 private:
-
-  Point2D m_min, m_max;
   void BoxCorrect()
   {
     Point2D p1 = Point2D(std::min(m_min.x(), m_max.x()), std::min(m_min.y(), m_max.y()));
@@ -129,7 +127,8 @@ private:
     m_min = p1;
     m_max = p2;
   }
-
+  
+  Point2D m_min, m_max;
 };
 
 std::ostream & operator << (std::ostream & os, Box2D const & obj)
