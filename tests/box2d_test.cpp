@@ -1,8 +1,9 @@
+#pragma once
+
 #include "gtest/gtest.h"
 #include "point2d.hpp"
-#include "box2d.hpp"
-#include "nvect.hpp"
 #include "ray2d.hpp"
+#include "box2d.hpp"
 #include <sstream>
 #include <unordered_set>
 
@@ -96,8 +97,8 @@ TEST(box2d_test, test_boxes_intersect)
   
   bool f1 = true;
   bool f2 = false;
-  EXPECT_EQ(b1.boxes_intersect(b2), f1);
-  EXPECT_EQ(b1.boxes_intersect(b3), f2);
+  EXPECT_EQ(b1.BoxesIntersect(b2), f1);
+  EXPECT_EQ(b1.BoxesIntersect(b3), f2);
 }
 TEST(box2d_test, test_box_ray_intersect)
 {
@@ -111,6 +112,6 @@ TEST(box2d_test, test_box_ray_intersect)
   Ray2D ray(Point2D(0.0f,0.0f),vect);
   bool f1 = false;
   bool f2 = true;
-  EXPECT_EQ(b1.box_ray_intersect(ray), f1);
-  EXPECT_EQ(b2.box_ray_intersect(ray), f2);
+  EXPECT_EQ(b1.BoxRayIntersect(ray), f1);
+  EXPECT_EQ(b2.BoxRayIntersect(ray), f2);
 }
