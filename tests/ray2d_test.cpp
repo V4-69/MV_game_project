@@ -8,7 +8,7 @@
 
 TEST(ray2d_test, test_construction)
 {
-  // Тест на создание объекта по умолчанию.
+
   Ray2D r1;
   Point2D p1;
   Point2D v1;
@@ -16,21 +16,18 @@ TEST(ray2d_test, test_construction)
   EXPECT_EQ(r1.origin(), p1);
   EXPECT_EQ(r1.direction(), v1);
 
-  // Тест на создание объекта с параметрами.
   Ray2D r2(1.0f, 2.0f, 3.0f, 4.0f);
   Point2D p2(1.0f, 2.0f);
   Point2D v2(0.6f, 0.8f);
   EXPECT_EQ(r2.origin(), p2);
   EXPECT_EQ(r2.direction(), v2);
 
-  //Тест инициализации по точе и вектору
   Point2D v3(0.0f, 1.0f);
   Point2D p3(2.0f, 3.0f);
   Ray2D r3(p3, v3);
   EXPEXT_EQ(r3.origin(), p3);
   EXPECT_EQ(r3.direction(), v3);
   
-  // Тест на создание копии объекта.
   Ray2D r3 = r2;
   EXPECT_EQ(r3, r2);
 }
