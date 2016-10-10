@@ -22,7 +22,23 @@ public:
   Point2D(float x, float y)
     : m_x(x), m_y(y)
   {}
-
+  
+  // Конструктор перемещения
+  Point2D(Point2D && obj)
+  {
+    std::swap(m_x, obj.m_x);
+    std::swap(m_y, obj.m_y);
+  }
+  
+  //Оператор перемещения
+  Point2D & operator = (Point2D && obj)
+  {
+    if (this == &obj) return *this;
+    std::swap(m_x, obj.m_x);
+    std::swap(m_y, obj.m_y);
+    return *this;
+  }
+  
   // Оператор логического равенства.
   bool operator == (Point2D const & obj) const
   {
