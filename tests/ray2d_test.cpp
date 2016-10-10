@@ -64,3 +64,20 @@ TEST(ray2d_test, test_square_brackets)
   EXPECT_EQ(r1[1], p2);
   EXPECT_EQ(r1[2], p3);
 }
+TEST(ray2d_test, test_move)
+{
+  Point2D p1 = { 0.0f, 2.0f };
+  Point2D p2 = { 0.0f, 1.0f };
+  Point2D p3 = { 0.0f, 2.0f };
+  Point2D p4 = { 1.0f, 0.0f };
+  Ray2D r1 = { p1, p2 };
+  Ray2D r2 = { p3, p4 };
+  // move constructor
+  Ray2D r3 = std::move(r1);
+  EXPECT_EQ(r1, Ray2D(Point2D { 0.0f, 0.0f }, Point2D { 0.0f, 0.0f }));
+  EXPECT_EQ(r3, Ray2D(Point2D { 0.0f, 2.0f }, Point2D { 0.0f, 1.0f }));
+  // move
+  r1 = std::move(r2);
+  EXPECT_EQ(r1, Ray2D(Point2D { 0.0f, 2.0f }, Point2D { 1.0f, 0.0f }));
+  EXPECT_EQ(r2, Ray2D(Point2D { 0.0f, 0.0f }, Point2D { 0.0f, 0.0f }));
+}
