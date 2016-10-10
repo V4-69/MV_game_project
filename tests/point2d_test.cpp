@@ -101,3 +101,18 @@ TEST(point2d_test, test_output)
   s << Point2D(1.2f, 0.2f);
   EXPECT_EQ(s.str(), "Point2D {1.2, 0.2}");
 }
+
+TEST(point2d_test, test_move)
+{
+  Point2D p1 = { 1.0f, 2.0f };
+  Point2D p2 = { 3.0f, 4.0f };
+  
+  // move constructor
+  Point2D p3 = std::move(p1);
+  EXPECT_EQ(p1, Point2D { 0.0f, 0.0f });
+  EXPECT_EQ(p3, Point2D { 1.0f, 2.0f });
+  // move
+  p1 = std::move(p2);
+  EXPECT_EQ(p1, Point2D { 3.0f, 4.0f });
+  EXPECT_EQ(p2, Point2D { 0.0f, 0.0f });
+}

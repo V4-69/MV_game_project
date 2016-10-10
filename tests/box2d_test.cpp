@@ -57,9 +57,9 @@ TEST(box2d_test, test_equality)
   Point2D p1 = { 1.2f, 2.4f };
   Point2D p2 = { 1.24f, 2.44f };
   Point2D p3 = { 1.3f, 2.4f };
-  Box2D b1 = {p1,p2};
-  Box2D b2 = {p1,p2};
-  Box2D b3 = {p1,p3};
+  Box2D b1 = {p1, p2};
+  Box2D b2 = {p1, p2};
+  Box2D b3 = {p1, p3};
   EXPECT_EQ(b1, b2);
   EXPECT_NE(b1, b3);
 }
@@ -91,9 +91,9 @@ TEST(box2d_test, test_boxes_intersect)
   Point2D p4 = { 2.5f, 3.5f };
   Point2D p5 = { 3.5f, 2.5f };
   Point2D p6 = { 4.5f, 3.5f };
-  Box2D b1 = {p1,p2};
-  Box2D b2 = {p3,p4};
-  Box2D b3 = {p5,p6};
+  Box2D b1 = { p1, p2 };
+  Box2D b2 = { p3, p4 };
+  Box2D b3 = { p5, p6 };
   
   bool f1 = true;
   bool f2 = false;
@@ -107,11 +107,28 @@ TEST(box2d_test, test_box_ray_intersect)
   Point2D p3 = { 0.0f, 2.0f };
   Point2D p4 = { 4.0f, 3.0f };
   Vect2D vect(1.0f,1.0f);
-  Box2D b1 = {p1,p2};
-  Box2D b2 = {p3,p4};
+  Box2D b1 = { p1, p2 };
+  Box2D b2 = { p3, p4 };
   Ray2D ray(Point2D(0.0f,0.0f),vect);
   bool f1 = false;
   bool f2 = true;
   EXPECT_EQ(b1.BoxRayIntersect(ray), f1);
   EXPECT_EQ(b2.BoxRayIntersect(ray), f2);
+}
+TEST(box2d_test, test_move)
+{
+  Point2D p1 = { 0.0f, 2.0f };
+  Point2D p2 = { 1.0f, 3.0f };
+  Point2D p3 = { 0.0f, 2.0f };
+  Point2D p4 = { 4.0f, 3.0f };
+  Box2D b1 = { p1, p2 };
+  Box2D b2 = { p3, p4 };
+  // move constructor
+  Box2D b3 = std::move(b1);
+  EXPECT_EQ(b1, Box2D(Point2D { 0.0f, 0.0f }, Point2D { 0.0f, 0.0f }));
+  EXPECT_EQ(b3, Box2D(Point2D { 0.0f, 2.0f }, Point2D { 1.0f, 3.0f }));
+  // move
+  b1 = std::move(b2);
+  EXPECT_EQ(b1, Box2D(Point2D { 0.0f, 2.0f }, Point2D { 4.0f, 3.0f }));
+  EXPECT_EQ(b2, Box2D(Point2D { 0.0f, 0.0f }, Point2D { 0.0f, 0.0f }));
 }
