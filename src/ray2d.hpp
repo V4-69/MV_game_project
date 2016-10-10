@@ -45,7 +45,23 @@ public:
       *vals[i] = *it;
     m_direction.Normalize();
   }
-
+  
+  // Конструктор перемещения
+  Ray2D(Ray2D && obj)
+  {
+    std::swap(m_origin, obj.m_origin );
+    std::swap(m_direction, obj.m_direction );
+  }
+  
+  //Оператор перемещения
+  Ray2D & operator = (Ray2D && obj)
+  {
+    if (this == &obj) return *this;
+    std::swap(m_origin , obj.m_origin );
+    std::swap(m_direction, obj.m_direction);
+    return *this;
+  }
+  
   // Оператор логического равенства
   bool operator == (Ray2D const & obj) const
   {

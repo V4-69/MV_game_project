@@ -44,6 +44,22 @@ public:
       *vals[i] = *it;
     BoxCorrect();
   }
+  
+  // Конструктор перемещения
+  Box2D(Box2D && obj)
+  {
+    std::swap(m_min, obj.m_min);
+    std::swap(m_max, obj.m_max);
+  }
+  
+  //Оператор перемещения
+  Box2D & operator = (Box2D && obj)
+  {
+    if (this == &obj) return *this;
+    std::swap(m_min, obj.m_min);
+    std::swap(m_max, obj.m_max);
+    return *this;
+  }
 
   // Оператор присваивания.
   Box2D & operator = (Box2D const & obj)
