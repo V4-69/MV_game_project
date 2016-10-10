@@ -46,14 +46,14 @@ public:
     m_direction.Normalize();
   }
   
-  // Конструктор перемещения
+  // constructor move
   Ray2D(Ray2D && obj)
   {
     std::swap(m_origin, obj.m_origin );
     std::swap(m_direction, obj.m_direction );
   }
   
-  //Оператор перемещения
+  // operator move
   Ray2D & operator = (Ray2D && obj)
   {
     if (this == &obj) return *this;
@@ -62,7 +62,7 @@ public:
     return *this;
   }
   
-  // Оператор логического равенства
+  // operator logical equality
   bool operator == (Ray2D const & obj) const
   {
     return ((m_origin == obj.m_origin) && (m_direction == obj.m_direction));
