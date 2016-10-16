@@ -71,14 +71,6 @@ TEST(box2d_test, test_square_brackets)
   EXPECT_EQ(b1[2], p3);
 }
 
-/*TEST(box2d_test, test_output)
-{
-  std::stringstream s;
-  Point2D p1 = { 1.2f, 2.4f };
-  Point2D p2 = { 1.3f, 2.4f };
-  s << Box2D(p1, p2);
-  EXPECT_EQ(s.str(), "Box2D {Point2D {1.2, 2.4}, Point2D {1.3, 2.4}}");
-}*/
 TEST(box2d_test, test_boxes_intersect)
 {
   Point2D p1 = { 1.0f, 2.0f };
