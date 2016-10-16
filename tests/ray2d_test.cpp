@@ -1,7 +1,4 @@
-#pragma once
-
 #include "gtest/gtest.h"
-#include "point2d.hpp"
 #include "ray2d.hpp"
 #include <sstream>
 #include <unordered_set>
@@ -25,16 +22,16 @@ TEST(ray2d_test, test_construction)
   Point2D v3(0.0f, 1.0f);
   Point2D p3(2.0f, 3.0f);
   Ray2D r3(p3, v3);
-  EXPEXT_EQ(r3.origin(), p3);
+  EXPECT_EQ(r3.origin(), p3);
   EXPECT_EQ(r3.direction(), v3);
   
-  Ray2D r3 = r2;
-  EXPECT_EQ(r3, r2);
+  Ray2D r4 = r2;
+  EXPECT_EQ(r4, r2);
 }
 TEST(ray2d_test, test_initializer_list)
 {
   Point2D p1 = { 1.3f, 2.5f };
-  Point2D p2 = { 2.0f, 3.5f };
+  Point2D p2 = { 1.0f, 0.0f };
   Point2D p3 = { 3.3f, 4.5f };
 
   Ray2D r1 = { p1, p2, p3 };
@@ -57,7 +54,7 @@ TEST(ray2d_test, test_equality)
 TEST(ray2d_test, test_square_brackets)
 {
   Point2D p1 = { 1.2f, 2.4f };
-  Point2D p2 = { 1.3f, 2.4f };
+  Point2D p2 = { 1.0f, 0.0f };
   Point2D p3;
   Ray2D r1 = {p1,p2};
   EXPECT_EQ(r1[0], p1);
