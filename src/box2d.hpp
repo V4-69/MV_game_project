@@ -5,7 +5,7 @@
 #include <cmath>
 #include <initializer_list>
 #include <functional>
-#include <ostream>
+//#include <ostream>
 
 class Box2D
 {
@@ -81,6 +81,18 @@ public:
   {
     if (index >= 2) return Point2D(0.0f,0.0f);
     return index == 0 ? m_min : m_max;
+  }
+
+  Box2D operator += (const Point2D & p)
+  {
+    m_min += p;
+    m_max += p;
+    return *this;
+  }
+
+  Point2D BoxCenter()
+  {
+    return Point2D( (boxMin().x() + boxMax().x()) / 2, (boxMin().y() + boxMax().y()) / 2 );
   }
 
   bool BoxesIntersect(const Box2D &obj)

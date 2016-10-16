@@ -4,7 +4,7 @@
 #include <cmath>
 #include <initializer_list>
 #include <functional>
-#include <ostream>
+//#include <ostream>
 
 
 
@@ -99,9 +99,3 @@ private:
   Point2D m_origin;
   Point2D m_direction;
 };
-
-std::ostream & operator << (std::ostream & os, Ray2D const & obj)
-{
-  os << "Ray2D {" << obj.origin() << ", " << obj.direction() << "}";
-  return os;
-}
