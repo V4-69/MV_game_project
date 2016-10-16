@@ -1,5 +1,3 @@
-#pragma once
-
 #include "gtest/gtest.h"
 #include "point2d.hpp"
 #include <sstream>
@@ -95,13 +93,6 @@ TEST(point2d_test, test_hash)
   EXPECT_EQ(hashTable.size(), 2);
 }
 
-TEST(point2d_test, test_output)
-{
-  std::stringstream s;
-  s << Point2D(1.2f, 0.2f);
-  EXPECT_EQ(s.str(), "Point2D {1.2, 0.2}");
-}
-
 TEST(point2d_test, test_move)
 {
   Point2D p1 = { 1.0f, 2.0f };
@@ -109,10 +100,10 @@ TEST(point2d_test, test_move)
   
   // move constructor
   Point2D p3 = std::move(p1);
-  EXPECT_EQ(p1, Point2D { 0.0f, 0.0f });
-  EXPECT_EQ(p3, Point2D { 1.0f, 2.0f });
+  EXPECT_EQ(p1, Point2D ( 0.0f, 0.0f ));
+  EXPECT_EQ(p3, Point2D ( 1.0f, 2.0f ));
   // move
   p1 = std::move(p2);
-  EXPECT_EQ(p1, Point2D { 3.0f, 4.0f });
-  EXPECT_EQ(p2, Point2D { 0.0f, 0.0f });
+  EXPECT_EQ(p1, Point2D ( 3.0f, 4.0f ));
+  EXPECT_EQ(p2, Point2D ( 0.0f, 0.0f ));
 }
