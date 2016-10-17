@@ -38,6 +38,7 @@ public:
     std::swap(Box(), obj.Box());
   }
   
+  virtual ~GameObject(){};
   //Оператор перемещения
   GameObject & operator = (GameObject && obj)
   {
@@ -72,7 +73,7 @@ public:
     return !operator==(obj);
   }
   
-  void ChangeHP( int damage)
+  void ChangeHP(int damage)
   {
     if(m_healthPoints > damage) 
       m_healthPoints -= damage;
@@ -83,9 +84,9 @@ public:
   void ObjectMove()
   {
     // Движение
-  };
+  }
   
-  void Update(){};
+  void Update(){}
   
 private:
 

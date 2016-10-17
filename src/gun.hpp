@@ -4,8 +4,8 @@
 #include "gameObject.hpp"
 #include "bullet.hpp"
 
-#define DEFAULT_GUN_HP 3
-#define DEFAULT_GUN_BOX Box2D(Point2D(0, 0), Point2D(1, 1))
+const int DEFAULT_GUN_HP = 3;
+const Box2D DEFAULT_GUN_BOX = Box2D(Point2D(0, 0), Point2D(1, 1));
 
 class Gun: public GameObject
 {
@@ -25,11 +25,11 @@ public:
     : GameObject(DEFAULT_GUN_BOX, healthpoints)
   {}
 
-  Gun(Box2D box, int healthpoints)
+  Gun(Box2D const & box, int healthpoints)
     : GameObject(box, healthpoints)
   {}
 
-  Gun(Box2D box)
+  Gun(Box2D const & box)
     : GameObject(box, DEFAULT_GUN_HP)
   {}
   
@@ -78,9 +78,7 @@ public:
   
   Bullet makeShot()
   {
-    Point2D p = Point2D( Box().BoxCenter().x(), Box().boxMax().y() );
-    Bullet bul(p);
-    return bul;
+    return Bullet( Point2D( Box().BoxCenter().x(), Box().boxMax().y() ) );
   }
   
 };

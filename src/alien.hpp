@@ -5,8 +5,8 @@
 #include "bullet.hpp"
 #include <ostream>
 
-#define DEFAULT_ALIEN_HP 3
-#define DEFAULT_ALIEN_BOX Box2D(Point2D(0,0),Point2D(1,1))
+const int DEFAULT_ALIEN_HP = 3;
+const Box2D DEFAULT_ALIEN_BOX = Box2D(Point2D(0, 0),Point2D(1, 1));
 
 class Alien: public GameObject
 {
@@ -78,9 +78,7 @@ public:
   
   Bullet makeShot()
   {
-    Point2D p = Point2D( Box().BoxCenter().x(), Box().boxMin().y() );
-    Bullet bul(p);
-    return bul;
+    return Bullet( Point2D(Box().BoxCenter().x(), Box().boxMin().y()) );
   }
 
 };

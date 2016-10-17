@@ -11,24 +11,24 @@ class Obstacle: public GameObject
 public:
   // Конструктор по дефолту
   Obstacle()
-  : GameObject(DEFAULT_OBSTACLE_BOX, DEFAULT_OBSTACLE_HP)
+    : GameObject(DEFAULT_OBSTACLE_BOX, DEFAULT_OBSTACLE_HP)
   {}
   
   // Копирования
   Obstacle(Obstacle const & obj)
-  : GameObject(obj.Box(), obj.HealthPoints())
+    : GameObject(obj.Box(), obj.HealthPoints())
   {}
 
   Obstacle(int healthpoints)
-  : GameObject(DEFAULT_OBSTACLE_BOX, healthpoints)
+    : GameObject(DEFAULT_OBSTACLE_BOX, healthpoints)
   {}
 
   Obstacle(Box2D box, int healthpoints)
-  : GameObject(box, healthpoints)
+    : GameObject(box, healthpoints)
   {}
 
   Obstacle(Box2D box)
-  : GameObject(box, DEFAULT_OBSTACLE_HP)
+    : GameObject(box, DEFAULT_OBSTACLE_HP)
   {}
   
   // Конструктор перемещения

@@ -2,8 +2,8 @@
 
 #include "gameObject.hpp"
 
-#define BULLET_HP 1
-#define BULLET_BOX Box2D(Point2D(0,0),Point2D(1,1))
+const int BULLET_HP = 1;
+const Box2D BULLET_BOX = Box2D(Point2D(0, 0),Point2D(1, 1));
 
 class Bullet : public GameObject
 {
@@ -13,7 +13,7 @@ public:
   {}
 
   Bullet(Point2D p)
-    : GameObject(BULLET_BOX += p, BULLET_HP)
+    : GameObject((BULLET_BOX + p), BULLET_HP)
   {}
 
   // Конструктор копирования.

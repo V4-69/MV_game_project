@@ -9,7 +9,7 @@
 
 #define DEFAULT_SPACE_BOX Box2D(Point2D(0,0),Point2D(1,1))
 
-class Space:public GameEntity
+class Space: public GameEntity
 {
 public:
   // Разрешаем конструирование по умолчанию.

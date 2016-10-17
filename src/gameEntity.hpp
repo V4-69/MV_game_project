@@ -55,7 +55,10 @@ public:
     for (int i = 0; i < count && it != lst.end(); i++, ++it)
       *vals[i] = *it;
   }
-
+  
+  // Виртуальный деструктор
+  virtual ~GameEntity(){};
+  
   // Оператор присваивания.
   GameEntity & operator = (GameEntity const & obj)
   {
