@@ -73,5 +73,4 @@ TEST(space_test, test_move)
   gO1 = std::move(gO2);
   EXPECT_EQ( gO1, gO20 );
   EXPECT_EQ( gO2, gO00 );
-  //EXPECT_EQ( gO2.HealthPoints(), 0 );
 }

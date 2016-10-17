@@ -76,7 +76,6 @@ TEST(alien_test, test_move)
   a1 = std::move(a2);
   EXPECT_EQ( a1, a20 );
   EXPECT_EQ( a2, a00 );
-  //EXPECT_EQ( a2.HealthPoints(), 0 );
 }
 
 TEST(alien_test, test_changehp)

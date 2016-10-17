@@ -88,6 +88,7 @@ TEST(box2d_test, test_boxes_intersect)
   EXPECT_EQ(b1.BoxesIntersect(b2), f1);
   EXPECT_EQ(b1.BoxesIntersect(b3), f2);
 }
+
 TEST(box2d_test, test_box_ray_intersect)
 {
   Point2D p1 = { 0.0f, 2.0f };
@@ -103,6 +104,7 @@ TEST(box2d_test, test_box_ray_intersect)
   EXPECT_EQ(b1.BoxRayIntersect(ray), f1);
   EXPECT_EQ(b2.BoxRayIntersect(ray), f2);
 }
+
 TEST(box2d_test, test_move)
 {
   Point2D p1 = { 0.0f, 2.0f };
