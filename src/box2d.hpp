@@ -90,6 +90,11 @@ public:
     return *this;
   }
 
+  Box2D operator + (const Point2D & p) const
+  {
+    return Box2D(m_min + p, m_max + p);
+  }
+
   Point2D BoxCenter()
   {
     return Point2D( (boxMin().x() + boxMax().x()) / 2, (boxMin().y() + boxMax().y()) / 2 );
@@ -158,9 +163,3 @@ private:
   
   Point2D m_min, m_max;
 };
-
-std::ostream & operator << (std::ostream & os, Box2D const & obj)
-{
-  os << "Box2D {" << obj.boxMin() << ", " << obj.boxMax() << "}";
-  return os;
-}
