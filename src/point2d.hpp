@@ -1,5 +1,6 @@
 #pragma once
 
+#include "incorrectDataExceptions.hpp"
 #include <cmath>
 #include <initializer_list>
 #include <functional>
@@ -162,11 +163,19 @@ public:
   
   void Normalize()
   {
-    float abs = sqrt(m_x * m_x + m_y * m_y);
-    if (!EqualWithEps (abs, 0.0f))
+    try
     {
+      float abs = sqrt(m_x * m_x + m_y * m_y);
+      if (EqualWithEps (abs, 0.0f)) throw IncorrectDataExceptions("0 length of vector");
       m_x = m_x / abs;
       m_y = m_y / abs;
+    }
+    catch (IncorrectDataExceptions const & ex)
+    {
+      std::cout << ex.messageException() << std::endl;
+      std::cerr << ex.messageException() << std::endl;
+      m_x = 1.0f;
+      m_y = 0.0f;
     }
   }
   

@@ -4,10 +4,9 @@
 #include <cmath>
 #include <initializer_list>
 #include <functional>
-//#include <ostream>
 
-
-
+const Point2D DEFAULT_RAY_ORIGIN = Point2D(0.0f, 0.0f);
+const Point2D DEFAULT_RAY_DIRECTION = Point2D(1.0f, 0.0f);
 
 class Ray2D
 {
@@ -96,6 +95,6 @@ public:
   }
   
 private:
-  Point2D m_origin;
-  Point2D m_direction;
+  Point2D m_origin = DEFAULT_RAY_ORIGIN;
+  Point2D m_direction = DEFAULT_RAY_DIRECTION;
 };

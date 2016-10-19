@@ -13,24 +13,24 @@ class Alien: public GameObject
 public:
   // Конструктор по дефолту
   Alien()
-  : GameObject(DEFAULT_ALIEN_BOX, DEFAULT_ALIEN_HP)
+    : GameObject(DEFAULT_ALIEN_BOX, DEFAULT_ALIEN_HP)
   {}
   
   // Копирования
   Alien(Alien const & obj)
-  : GameObject(obj)
+    : GameObject(obj)
   {}
 
   Alien(int healthpoints)
-  : GameObject(DEFAULT_ALIEN_BOX, healthpoints)
+    : GameObject(DEFAULT_ALIEN_BOX, healthpoints)
   {}
 
   Alien(Box2D box, int healthpoints)
-  : GameObject(box, healthpoints)
+    : GameObject(box, healthpoints)
   {}
 
   Alien(Box2D box)
-  : GameObject(box, DEFAULT_ALIEN_HP)
+    : GameObject(box, DEFAULT_ALIEN_HP)
   {}
   
   // Конструктор перемещения
