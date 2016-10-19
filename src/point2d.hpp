@@ -138,9 +138,18 @@ public:
 
   Point2D & operator /= (float scale)
   {
-    //TODO: обработать деление на 0.
-    m_x /= scale;
-    m_y /= scale;
+    try
+    {
+      if (EqualWithEps (scale, 0.0f)) throw IncorrectDataExceptions("division by 0");
+      m_x /= scale;
+      m_y /= scale;
+    }
+    catch (IncorrectDataExceptions const & ex)
+    {
+      std::cerr << ex.what() << std::endl;
+      throw;
+    }
+
     return *this;
   }
 
@@ -172,10 +181,7 @@ public:
     }
     catch (IncorrectDataExceptions const & ex)
     {
-      std::cout << ex.messageException() << std::endl;
-      std::cerr << ex.messageException() << std::endl;
-      m_x = 1.0f;
-      m_y = 0.0f;
+      throw;
     }
   }
   

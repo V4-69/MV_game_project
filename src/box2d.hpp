@@ -192,10 +192,10 @@ private:
     }
     catch (IncorrectDataExceptions const & ex)
     {
-      std::cout << ex.messageException() << std::endl;
-      std::cerr << ex.messageException() << std::endl;
+      std::cerr << ex.what() << std::endl;
       m_min = DEFAULT_BOX_MIN;
       m_max = DEFAULT_BOX_MAX;
+      throw;
     }
   }
 

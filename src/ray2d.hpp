@@ -16,14 +16,14 @@ public:
   Ray2D(Ray2D const & obj)
     : m_origin(obj.m_origin), m_direction(obj.m_direction)
   {
-    m_direction.Normalize();
+    NormalizeDirection();
   }
 
   Ray2D(Point2D const & pt, Point2D const & vc)
   {
     m_origin = pt;
     m_direction = vc;
-    m_direction.Normalize();
+    NormalizeDirection();
   }
 
   Ray2D(float x1, float y1, float x2, float y2)
@@ -32,7 +32,7 @@ public:
     Point2D vc(x2, y2);
     m_origin = pt;
     m_direction = vc;
-    m_direction.Normalize();
+    NormalizeDirection();
   }
 
   Ray2D(std::initializer_list<Point2D> const & lst)
@@ -42,7 +42,7 @@ public:
     auto it = lst.begin();
     for (int i = 0; i < count && it != lst.end(); i++, ++it)
       *vals[i] = *it;
-    m_direction.Normalize();
+    NormalizeDirection();
   }
   
   // constructor move
@@ -95,6 +95,20 @@ public:
   }
   
 private:
+
+  void NormalizeDirection()
+  {
+    try
+    {
+      m_direction.Normalize();
+    }
+    catch (IncorrectDataExceptions const & ex)
+    {
+      std::cerr << ex.what() << std::endl;
+      throw;
+    }
+  }
+
   Point2D m_origin = DEFAULT_RAY_ORIGIN;
   Point2D m_direction = DEFAULT_RAY_DIRECTION;
 };

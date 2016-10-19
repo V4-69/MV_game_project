@@ -1,13 +1,11 @@
 #include <ostream>
 #include <string>
 
-class IncorrectDataExceptions : public std::exception 
+class IncorrectDataExceptions : public std::invalid_argument
 {
 public:
   IncorrectDataExceptions() = default;
-  IncorrectDataExceptions(std::string const & obj): m_messageException(obj){};
-  std::string const & messageException() const { return m_messageException; }
-  
-private:
-  std::string m_messageException;
+  IncorrectDataExceptions(const std::string& message):std::invalid_argument(message) {};
+  const char* what() const noexcept { return std::invalid_argument::what(); }
+  ~IncorrectDataExceptions(){};
 };

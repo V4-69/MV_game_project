@@ -101,9 +101,9 @@ private:
     }
     catch (IncorrectDataExceptions const & ex)
     {
-      std::cout << ex.messageException() << std::endl;
-      std::cerr << ex.messageException() << std::endl;
+      std::cerr << ex.what() << std::endl;
       m_healthPoints = 0;
+      throw;
     }
   }
 
