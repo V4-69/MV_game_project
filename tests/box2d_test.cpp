@@ -129,7 +129,5 @@ TEST(box2d_test, test_exception)
   // Тест на исключения.
   Point2D p1 = { 0.0f, 0.0f };
   Point2D p2 = { 0.0f, 0.0f };
-  Box2D b1 = Box2D( p1, p2 );
-  EXPECT_EQ(b1.boxMin(), DEFAULT_BOX_MIN);
-  EXPECT_EQ(b1.boxMax(), DEFAULT_BOX_MAX);
+  EXPECT_THROW({Box2D( p1, p2 );}, IncorrectDataExceptions);
 }

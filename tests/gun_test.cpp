@@ -91,11 +91,10 @@ TEST(gun_test, test_changeHP)
 
 TEST(gun_test, test_exception)
 {
-  // Тест на исключения.
-  Gun g1(-5);
-  EXPECT_EQ( g1.HealthPoints(), 0);
+  EXPECT_THROW(Gun g1(-3), IncorrectDataExceptions);
 
-  Box2D b1 = Box2D( Point2D(5, 5), Point2D(7, 7) );
-  Gun g2( b1, -5 );
-  EXPECT_EQ( g2.HealthPoints(), 0 );
+  Point2D p2_1 = { 1.3f, 2.5f };
+  Point2D p2_2 = { 2.0f, 3.5f };
+  Box2D b2 = { p2_1, p2_2 };
+  EXPECT_THROW(Gun g2( b2, -5 ), IncorrectDataExceptions);
 }
