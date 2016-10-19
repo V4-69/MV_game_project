@@ -38,7 +38,7 @@ TEST(alien_test, test_equality)
 {
   Point2D p1 = { 1.2f, 2.4f };
   Point2D p2 = { 1.24f, 2.44f };
-  Point2D p3 = { 1.3f, 2.4f };
+  Point2D p3 = { 1.3f, 2.7f };
   Box2D b1 = { p1, p2 };
   Box2D b2 = { p1, p2 };
   Box2D b3 = { p1, p3 };
@@ -88,3 +88,15 @@ TEST(alien_test, test_changehp)
   EXPECT_EQ( a2.HealthPoints(), 0);
   Alien a3;
 }
+
+TEST(alien_test, test_exception)
+{
+  // Тест на исключения.
+  Alien a1(-5);
+  EXPECT_EQ( a1.HealthPoints(), 0);
+
+  Box2D b1 = Box2D( Point2D(5, 5), Point2D(7, 7) );
+  Alien a2( b1, -5 );
+  EXPECT_EQ( a2.HealthPoints(), 0 );
+}
+

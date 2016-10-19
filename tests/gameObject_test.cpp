@@ -45,7 +45,7 @@ TEST(gameObject_test, test_equality)
 {
   Point2D p1 = { 1.2f, 2.4f };
   Point2D p2 = { 1.24f, 2.44f };
-  Point2D p3 = { 1.3f, 2.4f };
+  Point2D p3 = { 1.3f, 2.7f };
   Box2D b1 = { p1, p2 };
   Box2D b2 = { p1, p2 };
   Box2D b3 = { p1, p3 };
@@ -80,4 +80,17 @@ TEST(gameObject_test, test_move)
   gO1 = std::move(gO2);
   EXPECT_EQ( gO1, gO20 );
   EXPECT_EQ( gO2, gO00 );
+}
+
+TEST(gameObject_test, test_exception)
+{
+  // Тест на исключения.
+  GameObject gO1(-3);
+  EXPECT_EQ( gO1.HealthPoints(), 0 );
+
+  Point2D p2_1 = { 1.3f, 2.5f };
+  Point2D p2_2 = { 2.0f, 3.5f };
+  Box2D b2 = { p2_1, p2_2 };
+  GameObject gO2( b2, -5 );
+  EXPECT_EQ( gO2.HealthPoints(), 0 );
 }

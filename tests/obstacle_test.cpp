@@ -38,7 +38,7 @@ TEST(obstacle_test, test_equality)
 {
   Point2D p1 = { 1.2f, 2.4f };
   Point2D p2 = { 1.24f, 2.44f };
-  Point2D p3 = { 1.3f, 2.4f };
+  Point2D p3 = { 1.3f, 2.8f };
   Box2D b1 = { p1, p2 };
   Box2D b2 = { p1, p2 };
   Box2D b3 = { p1, p3 };
@@ -87,4 +87,15 @@ TEST(obstacle_test, test_ChangeHP)
   a2.ChangeHP( DEFAULT_OBSTACLE_HP + 1 );
   EXPECT_EQ( a2.HealthPoints(), 0);
   Obstacle a3;
+}
+
+TEST(obstacle_test, test_exception)
+{
+  // Тест на исключения.
+  Obstacle a1(-5);
+  EXPECT_EQ( a1.HealthPoints(), 0);
+
+  Box2D b1 = Box2D( Point2D(5, 5), Point2D(7, 7) );
+  Obstacle a2( b1, -5 );
+  EXPECT_EQ( a2.HealthPoints(), 0 );
 }
