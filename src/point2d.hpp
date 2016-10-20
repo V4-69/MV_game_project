@@ -172,17 +172,10 @@ public:
   
   void Normalize()
   {
-    try
-    {
-      float abs = sqrt(m_x * m_x + m_y * m_y);
-      if (EqualWithEps (abs, 0.0f)) throw IncorrectDataExceptions("0 length of vector");
-      m_x = m_x / abs;
-      m_y = m_y / abs;
-    }
-    catch (IncorrectDataExceptions const & ex)
-    {
-      throw;
-    }
+    float abs = sqrt(m_x * m_x + m_y * m_y);
+    if (EqualWithEps (abs, 0.0f)) throw IncorrectDataExceptions("0 length of vector");
+    m_x = m_x / abs;
+    m_y = m_y / abs;
   }
   
   bool EqualWithEpsX(float v) const
