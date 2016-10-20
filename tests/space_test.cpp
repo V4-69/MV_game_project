@@ -38,7 +38,7 @@ TEST(space_test, test_equality)
 {
   Point2D p1 = { 1.2f, 2.4f };
   Point2D p2 = { 1.24f, 2.44f };
-  Point2D p3 = { 1.3f, 2.4f };
+  Point2D p3 = { 1.3f, 2.8f };
   Box2D b1 = { p1, p2 };
   Box2D b2 = { p1, p2 };
   Box2D b3 = { p1, p3 };

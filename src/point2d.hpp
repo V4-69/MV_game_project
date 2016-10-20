@@ -1,5 +1,6 @@
 #pragma once
 
+#include "incorrectDataExceptions.hpp"
 #include <cmath>
 #include <initializer_list>
 #include <functional>
@@ -137,9 +138,18 @@ public:
 
   Point2D & operator /= (float scale)
   {
-    //TODO: обработать деление на 0.
-    m_x /= scale;
-    m_y /= scale;
+    try
+    {
+      if (EqualWithEps (scale, 0.0f)) throw IncorrectDataExceptions("division by 0");
+      m_x /= scale;
+      m_y /= scale;
+    }
+    catch (IncorrectDataExceptions const & ex)
+    {
+      std::cerr << ex.what() << std::endl;
+      throw;
+    }
+
     return *this;
   }
 
@@ -163,11 +173,9 @@ public:
   void Normalize()
   {
     float abs = sqrt(m_x * m_x + m_y * m_y);
-    if (!EqualWithEps (abs, 0.0f))
-    {
-      m_x = m_x / abs;
-      m_y = m_y / abs;
-    }
+    if (EqualWithEps (abs, 0.0f)) throw IncorrectDataExceptions("0 length of vector");
+    m_x = m_x / abs;
+    m_y = m_y / abs;
   }
   
   bool EqualWithEpsX(float v) const

@@ -7,7 +7,7 @@
 #include "box2d.hpp"
 #include "gameEntity.hpp"
 
-class GameObject:public GameEntity
+class GameObject: public GameEntity
 {
 public:
   // Разрешаем конструирование по умолчанию.
@@ -21,14 +21,18 @@ public:
   // Конструктор с параметрами.
   GameObject(int healthPoints)
     : GameEntity(), m_healthPoints(healthPoints)
-  {}
+  {
+    ObjectCorrect();
+  }
   
   GameObject(Box2D const & obj, int healthPoints)
     : GameEntity(obj), m_healthPoints(healthPoints)
-  {}
+  {
+    ObjectCorrect();
+  }
   
   GameObject(Box2D const & obj)
-    : GameEntity(obj), m_healthPoints(0.0f)
+    : GameEntity(obj), m_healthPoints(0)
   {}
   
   // Конструктор перемещения
@@ -89,6 +93,19 @@ public:
   void Update(){}
   
 private:
+  void ObjectCorrect()
+  {
+    try
+    {
+      if (m_healthPoints < 0) throw IncorrectDataExceptions("Object have HP < 0");
+    }
+    catch (IncorrectDataExceptions const & ex)
+    {
+      std::cerr << ex.what() << std::endl;
+      m_healthPoints = 0;
+      throw;
+    }
+  }
 
   int m_healthPoints = 0;
 };

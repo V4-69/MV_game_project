@@ -5,7 +5,9 @@
 #include <cmath>
 #include <initializer_list>
 #include <functional>
-//#include <ostream>
+
+const Point2D DEFAULT_BOX_MIN = Point2D(0.0f, 0.0f);
+const Point2D DEFAULT_BOX_MAX = Point2D(1.0f, 1.0f);
 
 class Box2D
 {
@@ -23,7 +25,9 @@ public:
   // Конструктор с параметрами.
   Box2D(Point2D const & min, Point2D const & max)
     : m_min(min), m_max(max)
-  {}
+  {
+    BoxCorrect();
+  }
 
   // Оператор логического равенства.
   bool operator == (Box2D const & obj) const
@@ -128,9 +132,27 @@ public:
       float kDia2 = -kDia1;
       float bDia1 = m_max.y() - kDia1 * m_max.x();
       float bDia2 = m_max.y() - kDia2 * m_min.x();
-      float x = - (bRay - bDia1) / (kRay - kDia1);
-      float y = kRay * x + bRay;
-      if (!Inside(Point2D(x,y)))    {
+      float x;
+      float y;
+      if (!EqualWithEps(kRay, kDia1))
+      {
+        x = - (bRay - bDia1) / (kRay - kDia1);
+        y = kRay * x + bRay;
+        if (!Inside(Point2D(x,y)))
+        {
+          if (!EqualWithEps(kRay, kDia2))
+          {
+            x = - (bRay - bDia2) / (kRay - kDia2);
+            y = kRay * x + bRay;
+          }
+          else
+          {
+            return false;
+          }
+        }
+      }
+      else
+      {
         x = - (bRay - bDia2) / (kRay - kDia2);
         y = kRay * x + bRay;
       }
@@ -153,13 +175,29 @@ public:
   }
 
 private:
+  bool EqualWithEps(float v1, float v2) const
+  {
+    return fabs(v1 - v2) < kEps;
+  }
   void BoxCorrect()
   {
-    Point2D p1 = Point2D(std::min(m_min.x(), m_max.x()), std::min(m_min.y(), m_max.y()));
-    Point2D p2 = Point2D(std::max(m_min.x(), m_max.x()), std::max(m_min.y(), m_max.y()));
-    m_min = p1;
-    m_max = p2;
+    try
+    {
+      if (m_min.EqualWithEpsX(m_max.x())) throw IncorrectDataExceptions("box have 0 width");
+      if (m_min.EqualWithEpsY(m_max.y())) throw IncorrectDataExceptions("box have 0 length");
+      Point2D p1 = Point2D(std::min(m_min.x(), m_max.x()), std::min(m_min.y(), m_max.y()));
+      Point2D p2 = Point2D(std::max(m_min.x(), m_max.x()), std::max(m_min.y(), m_max.y()));
+      m_min = p1;
+      m_max = p2;
+    }
+    catch (IncorrectDataExceptions const & ex)
+    {
+      std::cerr << ex.what() << std::endl;
+      m_min = DEFAULT_BOX_MIN;
+      m_max = DEFAULT_BOX_MAX;
+      throw;
+    }
   }
-  
-  Point2D m_min, m_max;
+
+  Point2D m_min = DEFAULT_BOX_MIN, m_max = DEFAULT_BOX_MAX;
 };

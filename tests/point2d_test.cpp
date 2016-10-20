@@ -107,3 +107,11 @@ TEST(point2d_test, test_move)
   EXPECT_EQ(p1, Point2D ( 3.0f, 4.0f ));
   EXPECT_EQ(p2, Point2D ( 0.0f, 0.0f ));
 }
+
+TEST(point2d_test, test_exception)
+{
+  // Тесты на исключения.
+  Point2D p1 = { 0.0f, 0.0f };
+  EXPECT_THROW({p1.Normalize();}, IncorrectDataExceptions);
+  EXPECT_THROW({p1 /= 0.0f;}, IncorrectDataExceptions);
+}
