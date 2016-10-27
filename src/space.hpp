@@ -65,4 +65,9 @@ public:
     // код для Space
   };
 
+  friend std::ostream & operator << (std::ostream & os, Space const & obj)
+  {
+    os << "Space box: " << obj.Box();
+    return os;
+  }
 };

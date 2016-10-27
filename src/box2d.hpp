@@ -5,6 +5,7 @@
 #include <cmath>
 #include <initializer_list>
 #include <functional>
+#include <ostream>
 
 const Point2D DEFAULT_BOX_MIN = Point2D(0.0f, 0.0f);
 const Point2D DEFAULT_BOX_MAX = Point2D(1.0f, 1.0f);
@@ -173,7 +174,11 @@ public:
       return false;
     }
   }
-
+  friend std::ostream & operator << (std::ostream & os, Box2D const & obj)
+  {
+    os << "Box2D {" << obj.boxMin() << ", " << obj.boxMax() << "}";
+    return os;
+  }
 private:
   bool EqualWithEps(float v1, float v2) const
   {

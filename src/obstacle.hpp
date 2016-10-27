@@ -73,5 +73,10 @@ public:
     GameEntity::Update();
     // код для Obstacle
   };
-  
+
+  friend std::ostream & operator << (std::ostream & os, Obstacle const & obj)
+  {
+    os << "Obstacle HP: " << obj.HealthPoints() << " Obstacle box: " << obj.Box();
+    return os;
+  }
 };

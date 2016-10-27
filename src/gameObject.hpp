@@ -91,6 +91,11 @@ public:
   }
   
   void Update(){}
+  friend std::ostream & operator << (std::ostream & os, GameObject const & obj)
+  {
+    os << "GameObject HP: " << obj.HealthPoints() << " GameObject box: " << obj.Box();
+    return os;
+  }
   
 private:
   void ObjectCorrect()

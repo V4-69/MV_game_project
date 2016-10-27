@@ -1,6 +1,4 @@
-﻿#pragma once
-
-#include "gtest/gtest.h"
+﻿#include "gtest/gtest.h"
 #include "alien.hpp"
 #include <sstream>
 #include <unordered_set>
@@ -99,3 +97,54 @@ TEST(alien_test, test_exception)
   EXPECT_THROW(Alien a2( b2, -5 ), IncorrectDataExceptions);
 }
 
+TEST(alien_test, test_output)
+{
+  Point2D p2_1 = { 1.3f, 2.5f };
+  Point2D p2_2 = { 2.0f, 3.5f };
+  Box2D b = { p2_1, p2_2 };
+  Alien a(b, 5);
+  std::stringstream s;
+  std::stringstream sOut;
+  s << a;
+  sOut << "Alien HP: " << a.HealthPoints() << " Alien box: " << a.Box();
+  EXPECT_EQ(s.str(), sOut.str());
+}
+
+TEST(alien_test, test_logger)
+{
+  std::string create = "create";
+  std::string emptyS = "[----------]";
+
+  Alien a1;
+  Alien a2(5);
+  Alien a3(7);
+
+  std::stringstream s;
+  std::stringstream sOut;
+  Logger::Log(a1, s);
+  sOut << emptyS << std::endl << a1 << std::endl << emptyS <<std::endl<<std::endl;
+  EXPECT_EQ(s.str(), sOut.str());
+
+  std::stringstream s1;
+  std::stringstream sOut1;
+  Logger::Log(a1, create, s1);
+  sOut1 << emptyS << std::endl << create << std::endl << a1 << std::endl << emptyS <<std::endl<<std::endl;
+  EXPECT_EQ(s1.str(), sOut1.str());
+
+  std::vector<Alien> v = { a1, a2, a3 };
+  std::stringstream s2;
+  std::stringstream sOut2;
+  Logger::Log(v, create, s2);
+  sOut2 << emptyS << std::endl << create << std::endl << a1 << std::endl << emptyS <<std::endl<<std::endl;
+  sOut2 << emptyS << std::endl << create << std::endl << a2 << std::endl << emptyS <<std::endl<<std::endl;
+  sOut2 << emptyS << std::endl << create << std::endl << a3 << std::endl << emptyS <<std::endl<<std::endl;
+  EXPECT_EQ(s2.str(), sOut2.str());
+
+  std::stringstream s3;
+  std::stringstream sOut3;
+  Logger::Log(v, s3);
+  sOut3 << emptyS << std::endl << create << std::endl << a1 << std::endl << emptyS <<std::endl<<std::endl;
+  sOut3 << emptyS << std::endl << create << std::endl << a2 << std::endl << emptyS <<std::endl<<std::endl;
+  sOut3 << emptyS << std::endl << create << std::endl << a3 << std::endl << emptyS <<std::endl<<std::endl;
+  EXPECT_EQ(s2.str(), sOut3.str());
+}

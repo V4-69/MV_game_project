@@ -93,7 +93,11 @@ public:
   {
     return m_direction;
   }
-  
+  friend std::ostream & operator << (std::ostream & os, Ray2D const & obj)
+  {
+    os << "Ray2D {" << obj.origin() << ", " << obj.direction() << "}";
+    return os;
+  }
 private:
 
   void NormalizeDirection()

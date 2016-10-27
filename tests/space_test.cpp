@@ -74,3 +74,61 @@ TEST(space_test, test_move)
   EXPECT_EQ( gO1, gO20 );
   EXPECT_EQ( gO2, gO00 );
 }
+
+TEST(space_test, test_output)
+{
+  Point2D p2_1 = { 1.3f, 2.5f };
+  Point2D p2_2 = { 2.0f, 3.5f };
+  Box2D b1 = { p2_1, p2_2 };
+  Space sp(b1);
+  std::stringstream s;
+  std::stringstream sOut;
+  s << sp;
+  sOut << "Space box: " << sp.Box();
+  EXPECT_EQ(s.str(), sOut.str());
+}
+
+TEST(space_test, test_logger)
+{
+  std::string create = "create";
+  std::string emptyS = "[----------]";
+
+  Point2D p1 = { 1.0f, 2.0f };
+  Point2D p2 = { 2.0f, 3.0f };
+  Point2D p3 = { 3.0f, 4.0f };
+  Point2D p4 = { 4.0f, 5.0f };
+
+  Box2D b1 = { p1, p2 };
+  Box2D b2 = { p3, p4 };
+
+  Space sp1(b1);
+  Space sp2(b2);
+
+  std::stringstream s;
+  std::stringstream sOut;
+  Logger::Log(sp1, s);
+  sOut << emptyS << std::endl << sp1 << std::endl << emptyS << "\n\n";
+  EXPECT_EQ(s.str(), sOut.str());
+
+  std::stringstream s1;
+  std::stringstream sOut1;
+  Logger::Log(sp1, create, s1);
+  sOut1 << emptyS << std::endl << create << std::endl << sp1 << std::endl << emptyS << "\n\n";
+  EXPECT_EQ(s1.str(), sOut1.str());
+
+  std::vector<Space> v = { sp1, sp2 };
+  std::stringstream s2;
+  std::stringstream sOut2;
+  Logger::Log(v, create, s2);
+  sOut2 << emptyS << std::endl << create << std::endl << sp1 << std::endl << emptyS << "\n\n";
+  sOut2 << emptyS << std::endl << create << std::endl << sp2 << std::endl << emptyS << "\n\n";
+  EXPECT_EQ(s2.str(), sOut2.str());
+
+  std::vector<Space> v1 = { sp1, sp2 };
+  std::stringstream s3;
+  std::stringstream sOut3;
+  Logger::Log(v1, s3);
+  sOut3 << emptyS << std::endl << sp1 << std::endl << emptyS << "\n\n";
+  sOut3 << emptyS << std::endl << sp2 << std::endl << emptyS << "\n\n";
+  EXPECT_EQ(s3.str(), sOut3.str());
+}

@@ -80,5 +80,10 @@ public:
   {
     return Bullet( Point2D( Box().BoxCenter().x(), Box().boxMax().y() ) );
   }
+  friend std::ostream & operator << (std::ostream & os, Gun const & obj)
+  {
+    os << "Gun HP: " << obj.HealthPoints() << " Gun box: " << obj.Box();
+    return os;
+  }
   
 };

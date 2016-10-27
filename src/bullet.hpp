@@ -67,5 +67,9 @@ public:
     GameEntity::Update();
     // код для bullet
   };
-  
+  friend std::ostream & operator << (std::ostream & os, Bullet const & obj)
+  {
+    os << "Bullet HP: " << obj.HealthPoints() << " Bullet box: " << obj.Box();
+    return os;
+  }
 };
