@@ -81,6 +81,12 @@ public:
   }
   
   void Update(){};
+
+  friend std::ostream & operator << (std::ostream & os, GameEntity const & obj)
+  {
+    os << "GameEntity box: " << obj.Box();
+    return os;
+  }
 private:
 
   Box2D m_box;

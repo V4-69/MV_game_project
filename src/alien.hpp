@@ -81,4 +81,9 @@ public:
     return Bullet( Point2D(Box().BoxCenter().x(), Box().boxMin().y()) );
   }
 
+  friend std::ostream & operator << (std::ostream & os, Alien const & obj)
+  {
+    os << "Alien HP: " << obj.HealthPoints() << " Alien box: " << obj.Box();
+    return os;
+  }
 };
