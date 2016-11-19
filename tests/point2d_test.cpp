@@ -1,5 +1,6 @@
 #include "gtest/gtest.h"
 #include "point2d.hpp"
+#include "factory.hpp"
 #include <sstream>
 #include <unordered_set>
 
@@ -160,4 +161,16 @@ TEST(point2d_test, test_logger)
   sOut3 << emptyS << std::endl << p2 << std::endl << emptyS << "\n\n";
   sOut3 << emptyS << std::endl << p3 << std::endl << emptyS << "\n\n";
   EXPECT_EQ(s3.str(), sOut3.str());
+}
+
+TEST(point2d_test, test_factory)
+{
+  Factory factory;
+  auto p1 = factory.Create<Point2D>();
+  EXPECT_EQ(p1->x(), 0.0f);
+  EXPECT_EQ(p1->y(), 0.0f);
+
+  auto p2 = factory.Create<Point2D>( 1.2f, 2.4f );
+  EXPECT_EQ(p2->x(), 1.2f);
+  EXPECT_EQ(p2->y(), 2.4f);
 }

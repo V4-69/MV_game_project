@@ -1,7 +1,9 @@
 ﻿#pragma once
 
 #include "gtest/gtest.h"
-#include "bullet.hpp"
+#include "gun.hpp"
+#include "alien.hpp"
+#include "factory.hpp"
 #include <sstream>
 #include <unordered_set>
 
@@ -136,4 +138,60 @@ TEST(bullet_test, test_logger)
   sOut3 << emptyS << std::endl << create << std::endl << a2 << std::endl << emptyS <<std::endl<<std::endl;
   sOut3 << emptyS << std::endl << create << std::endl << a3 << std::endl << emptyS <<std::endl<<std::endl;
   EXPECT_EQ(s2.str(), sOut3.str());
+}
+
+TEST(bullet_test, test_factory)
+{
+  Factory factory;
+  Box2D b1 = BULLET_BOX;
+  auto g1 = factory.Create<Bullet>();
+  EXPECT_EQ( g1->HealthPoints(), BULLET_HP );
+  EXPECT_EQ( g1->Box(), b1 );
+  
+  Box2D b2 = Box2D( Point2D(5, 5),Point2D(7, 7) );
+  auto g3 = factory.Create<Bullet>(b2);
+  EXPECT_EQ( g3->HealthPoints(), BULLET_HP );
+  EXPECT_EQ( g3->Box(), b2 );
+
+  Point2D p( 5, 5 );
+  Box2D b3( Point2D(5,5), Point2D(6,6) );
+  auto g6 = factory.Create<Bullet>(p);
+  EXPECT_EQ( g6->Box(), b3 );
+}
+
+TEST (bullet_test, test_observer)
+{
+  Box2D b1 = Box2D( Point2D(3, 3), Point2D(4, 4) );
+  Box2D b2 = Box2D( Point2D(5, 5), Point2D(7, 7) );
+  Box2D b3 = Box2D( Point2D(2, 2), Point2D(4, 4) );
+  Alien a1(b2, 5);
+  Alien a2(b3, 5);
+  Gun g1(b2, 5);
+  Gun g2(b3, 5);
+
+  EXPECT_EQ(b1.BoxesIntersect(b2), false);
+  EXPECT_EQ(b1.BoxesIntersect(b3), true);
+
+  EXPECT_EQ(b2.BoxesIntersect(b1), false);
+  EXPECT_EQ(b3.BoxesIntersect(b1), true);
+
+  std::vector<GameObject> v = { a1, a2, g1, g2 };
+  Bullet bul(b1);
+  
+  bul.SetUpdateHandler([&v, &bul]()
+  {
+    for (auto it = v.begin(); it != v.end(); ++it)
+    {
+      if ( (*it).Box().BoxesIntersect(bul.Box()) )
+      {
+        std::cout << "YEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEES";
+        (*it).ChangeHP(1);
+      }
+    }
+  });
+  bul.Update();
+  EXPECT_EQ( v[0].HealthPoints(), 5 );
+  EXPECT_EQ( v[1].HealthPoints(), 4 );
+  EXPECT_EQ( v[2].HealthPoints(), 5 );
+  EXPECT_EQ( v[3].HealthPoints(), 4 );
 }

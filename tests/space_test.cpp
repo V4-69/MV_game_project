@@ -2,6 +2,7 @@
 
 #include "gtest/gtest.h"
 #include "space.hpp"
+#include "factory.hpp"
 #include <sstream>
 #include <unordered_set>
 
@@ -131,4 +132,18 @@ TEST(space_test, test_logger)
   sOut3 << emptyS << std::endl << sp1 << std::endl << emptyS << "\n\n";
   sOut3 << emptyS << std::endl << sp2 << std::endl << emptyS << "\n\n";
   EXPECT_EQ(s3.str(), sOut3.str());
+}
+
+TEST(space_test, test_factory)
+{
+  Factory factory;
+  Box2D b1 = DEFAULT_SPACE_BOX;
+  auto gO1 = factory.Create<Space>();
+  EXPECT_EQ( gO1->Box(), b1 );
+
+  Point2D p2_1 = { 1.3f, 2.5f };
+  Point2D p2_2 = { 2.0f, 3.5f };
+  Box2D b2 = { p2_1, p2_2 };
+  auto gO2 = factory.Create<Space>(b2);
+  EXPECT_EQ( gO2->Box(), b2 );
 }

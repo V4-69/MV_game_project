@@ -2,6 +2,7 @@
 
 #include "gtest/gtest.h"
 #include "gameEntity.hpp"
+#include "factory.hpp"
 #include <sstream>
 #include <unordered_set>
 
@@ -133,3 +134,16 @@ TEST(gameEntity_test, test_logger)
   EXPECT_EQ(s3.str(), sOut3.str());
 }
 
+TEST(gameEntity_test, test_factory)
+{
+  Factory factory;
+  Box2D b1;
+  auto gE1 = factory.Create<GameEntity>();
+  EXPECT_EQ(gE1->Box(), b1);
+
+  Point2D p2_1 = { 1.3f, 2.5f };
+  Point2D p2_2 = { 2.0f, 3.5f };
+  Box2D b2 = { p2_1, p2_2 };
+  auto gE2 = factory.Create<GameEntity>(b2);
+  EXPECT_EQ(gE2->Box(), b2);
+}

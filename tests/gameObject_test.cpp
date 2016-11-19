@@ -2,6 +2,7 @@
 
 #include "gtest/gtest.h"
 #include "gameObject.hpp"
+#include "factory.hpp"
 #include <sstream>
 #include <unordered_set>
 
@@ -143,4 +144,25 @@ TEST(gameObject_test, test_logger)
   sOut3 << emptyS << std::endl << create << std::endl << a2 << std::endl << emptyS <<std::endl<<std::endl;
   sOut3 << emptyS << std::endl << create << std::endl << a3 << std::endl << emptyS <<std::endl<<std::endl;
   EXPECT_EQ(s2.str(), sOut3.str());
+}
+
+TEST(gameObject_test, test_factory)
+{
+  Factory factory;
+  Box2D b1;
+  auto gO1 = factory.Create<GameObject>();
+  EXPECT_EQ( gO1->Box(), b1 );
+  EXPECT_EQ( gO1->HealthPoints(), 0 );
+
+  Point2D p2_1 = { 1.3f, 2.5f };
+  Point2D p2_2 = { 2.0f, 3.5f };
+  Box2D b2 = { p2_1, p2_2 };
+  auto gO2 = factory.Create<GameObject>( b2, 5 );
+  EXPECT_EQ( gO2->Box(), b2 );
+  EXPECT_EQ( gO2->HealthPoints(), 5 );
+  
+  auto gO3 = factory.Create<GameObject>( b2 );
+  EXPECT_EQ( gO3->Box(), b2 );
+  EXPECT_EQ( gO3->HealthPoints(), 0 );
+
 }
