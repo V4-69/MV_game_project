@@ -4,8 +4,9 @@
 #include <iostream>
 #include <string>
 #include <initializer_list>
+#include <singleton.hpp>
 
-class Logger
+class Logger : public Singleton<Logger>
 {
 public:
   template <typename T>
@@ -42,4 +43,8 @@ public:
       Log(obj, act, os);
     return os;
   }
+
+private:
+  friend class Singleton<Logger>;
+  Logger() = default;
 };

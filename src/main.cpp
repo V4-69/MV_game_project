@@ -1,10 +1,18 @@
-#include <iostream>
+#pragma once
+#include <QApplication>
+#include <QMainWindow>
+#include <QSurfaceFormat>
+#include "main_window.hpp"
+#include "def_set_cus_set.hpp"
 
-using namespace std;
 
-int main()
+int main(int argc, char ** argv)
 {
-  cout << "Hello World!" << endl;
-  return 0;
+  QApplication app(argc, argv);
+  MyMainWindow window;
+  window.setWindowTitle(QString::fromUtf8("MainWindow"));
+  window.decorate();
+  return app.exec();
 }
+
 
