@@ -107,8 +107,6 @@ void GLWidget::paintGL()
   glEnable(GL_BLEND);
   glEnable(GL_ALPHA_TEST);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-  //m_starTexture = new QOpenGLTexture(QImage("data/star.png"));
   Render();
 
   glDisable(GL_CULL_FACE);
