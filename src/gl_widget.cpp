@@ -12,6 +12,7 @@
 #include <time.h>
 #include <iostream>
 #include "game_window.hpp"
+#include <chrono>
 namespace
 {
 
@@ -61,22 +62,31 @@ GLWidget::~GLWidget()
 void GLWidget::initializeGL()
 {
   initializeOpenGLFunctions();
-  srand(time(NULL));
+
+  using namespace std::chrono;
+  auto now = system_clock::now();
+  auto now_ms = time_point_cast<milliseconds>(now);
+  auto value = now_ms.time_since_epoch();
+  long duration = value.count();
+  srand(duration);
+
   for(int i=0;i<10;i++)
   {
     m_stars[i][0]=rand()%800;
     m_stars[i][1]=rand()%600;
     m_phases[i]=rand()%1000;
   }
-
   m_texturedRect = new TexturedRect();
   m_texturedRect->Initialize(this);
   m_star = new Star();
   m_star->Initialize(this);
+  glDisable(GL_ALPHA_TEST);
   m_texture = new QOpenGLTexture(QImage("data/alien.png"));
   m_starTexture = new QOpenGLTexture(QImage("data/star.png"));
   m_gunTexture = new QOpenGLTexture(QImage("data/gun.png"));
+  glDisable(GL_ALPHA_TEST);
   m_time.start();
+
 }
 
 void GLWidget::paintGL()
@@ -95,12 +105,15 @@ void GLWidget::paintGL()
   glCullFace(GL_BACK);
   glEnable(GL_CULL_FACE);
   glEnable(GL_BLEND);
+  glEnable(GL_ALPHA_TEST);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+  //m_starTexture = new QOpenGLTexture(QImage("data/star.png"));
   Render();
 
   glDisable(GL_CULL_FACE);
   glDisable(GL_BLEND);
+  glDisable(GL_ALPHA_TEST);
 
   painter.endNativePainting();
 
@@ -145,7 +158,7 @@ void GLWidget::Update(float elapsedSeconds)
 void GLWidget::Render()
 {
   for(int i=0;i<10;i++)
-    m_star->Render(m_starTexture, QVector2D(m_stars[i][0],m_stars[i][1]), QSize(128, 128), m_screenSize,(float)0.5+0.5*sin(3.14*0.001*(m_phases[i]+m_time.elapsed())));
+    m_star->Render(m_starTexture, QVector2D(m_stars[i][0],m_stars[i][1]), QSize(16,16), m_screenSize,(float)0.5+0.5*sin(3.14*0.001*(m_phases[i]+m_time.elapsed())));
   m_texturedRect->Render(m_gunTexture, m_position, QSize(128, 128), m_screenSize);
   m_texturedRect->Render(m_texture, QVector2D(400, 400), QSize(128, 128), m_screenSize);
   m_texturedRect->Render(m_texture, QVector2D(600, 600), QSize(128, 128), m_screenSize);

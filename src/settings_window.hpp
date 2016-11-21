@@ -27,7 +27,7 @@ public:
   SettingsWindow();
 
 public slots:
-  int set_difficulty(int data1);
+  int setDifficulty(int m_difficulty);
 
 
 };

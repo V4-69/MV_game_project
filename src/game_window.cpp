@@ -12,7 +12,7 @@ typedef void (QWidget::*QWidgetVoidSlot)();
 
 GameWindow::GameWindow()
 {
-  m_glWidget = new GLWidget(this, qRgb(0,0, 0));
+  m_glWidget = new GLWidget(this, qRgb(255, 255, 255));
   m_timer = new QTimer(this);
   m_timer->setInterval(10);
   setCentralWidget(m_glWidget);

@@ -28,7 +28,7 @@ SettingsWindow::SettingsWindow()
   comboBox->addItem("Средне", 2);
   comboBox->addItem("Сложно", 3);
   comboBox->setCurrentIndex(1);
-  connect(comboBox, SIGNAL(activated(int)), this, SLOT(set_difficulty(int)));
+  connect(comboBox, SIGNAL(activated(int)), this, SLOT(setDifficulty(int)));
 
   QPushButton *cancel =new QPushButton("Отмена");
   QPushButton *def = new QPushButton("Вернуть стандартные");
@@ -51,15 +51,15 @@ SettingsWindow::SettingsWindow()
   show();
 }
 
-SettingsWindow::set_difficulty(int data1)
+SettingsWindow::setDifficulty(int m_difficulty)
 {
   QMessageBox msgBox;
   msgBox.setWindowTitle("Hello");
-  if(data1 == 0)
+  if(m_difficulty == 0)
   msgBox.setText("0");
-  if(data1 == 1)
+  if(m_difficulty == 1)
   msgBox.setText("1");
-  if(data1 == 2)
+  if(m_difficulty == 2)
   msgBox.setText("2");
   msgBox.resize(500,500);
   msgBox.exec();

@@ -30,8 +30,8 @@ public:
     button->setText("Играть1");
     button2->setText("Настроечки");
 
-    QObject::connect(button, SIGNAL(clicked()),this, SLOT(clickedSlot1()));
-    QObject::connect(button2, SIGNAL(clicked()),this, SLOT(clickedSlot2()));
+    QObject::connect(button, SIGNAL(clicked()),this, SLOT(GameWindowSlot()));
+    QObject::connect(button2, SIGNAL(clicked()),this, SLOT(SettingsSlot()));
 
     button->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding);
     button2->setSizePolicy(QSizePolicy::Expanding,QSizePolicy::Expanding);
@@ -50,7 +50,7 @@ public:
   }
 
 public slots:
-  int clickedSlot1()
+  int GameWindowSlot()
   {
     QSurfaceFormat format;
     format.setDepthBufferSize(24);
@@ -59,7 +59,7 @@ public slots:
     GameWindow  *gw = new GameWindow;
     gw->show();
   }
-  void clickedSlot2()
+  void SettingsSlot()
   {
     QSurfaceFormat format;
     format.setDepthBufferSize(24);

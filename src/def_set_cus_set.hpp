@@ -11,8 +11,8 @@ namespace default_settings
 
 namespace custom_settings
 {
-  int cus_h=0;
-  int cus_w=0;
+  int cus_h = 0;
+  int cus_w = 0;
 }
 
 #endif // DEF_SET_CUS_SET_HPP

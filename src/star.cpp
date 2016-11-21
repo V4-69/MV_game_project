@@ -25,7 +25,7 @@ bool Star::Initialize(QOpenGLFunctions * functions)
     "varying highp vec2 v_texCoord;\n"
     "void main(void)\n"
     "{\n"
-    "  gl_Position = u_modelViewProjection * vec4(a_position, 8.0);\n"
+    "  gl_Position = u_modelViewProjection * vec4(a_position, 1.0);\n"
     "  v_texCoord = a_texCoord;\n"
     "}\n";
   if (!m_vertexShader->compileSourceCode(vsrc)) return false;
@@ -38,7 +38,17 @@ bool Star::Initialize(QOpenGLFunctions * functions)
     "void main(void)\n"
     "{\n"
     "  highp vec4 color = texture2D(tex, v_texCoord);\n"
-    "  gl_FragColor = clamp(color, 0.0, max);\n"
+    "  highp vec4 color1 = texture2D(tex, v_texCoord);\n"
+    "  highp vec4 color2 = texture2D(tex, v_texCoord);\n"
+    "  color1.x=0.0;"
+    "  color1.y=0.0;\n"
+    "  color1.z=0.0;\n"
+    "  color1.w=0.0;\n"
+    "  color2.x=1.0;\n"
+    "  color2.y=1.0;\n"
+    "  color2.z=1.0;\n"
+    "  color2.w=max;\n"
+    "  gl_FragColor = clamp(color,color1,color2);\n"
     "}\n";
   if (!m_fragmentShader->compileSourceCode(fsrc)) return false;
 
@@ -87,17 +97,17 @@ void Star::Render(QOpenGLTexture * texture, QVector2D const & position,
   m_program->setUniformValue(m_modelViewProjectionUniform, mvp);
   m_program->setUniformValue(m_maxAttr,trans);
   texture->bind();
-  //m_program->enableAttributeArray(m_maxAttr);
+
   m_program->enableAttributeArray(m_positionAttr);
   m_program->enableAttributeArray(m_texCoordAttr);
   m_vbo.bind();
   float max=1;
- // m_program->setAttributeValue(m_maxAttr,max);
+
   m_program->setAttributeBuffer(m_positionAttr, GL_FLOAT, 0, 3, 5 * sizeof(float));
   m_program->setAttributeBuffer(m_texCoordAttr, GL_FLOAT, 3 * sizeof(float), 2, 5 * sizeof(float));
   m_vbo.release();
   m_functions->glDrawArrays(GL_TRIANGLES, 0, 6);
-  //m_program->disableAttributeArray(m_maxAttr);
+
   m_program->disableAttributeArray(m_positionAttr);
   m_program->disableAttributeArray(m_texCoordAttr);
   m_program->release();

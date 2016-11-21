@@ -1,7 +1,7 @@
 #ifndef STAR_HPP
 #define STAR_HPP
 #pragma once
-#pragma once
+
 
 #include <QOpenGLFunctions>
 #include <QOpenGLBuffer>
