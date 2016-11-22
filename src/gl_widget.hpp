@@ -47,8 +47,10 @@ private:
   QTime m_time;
   QColor m_background;
   QSize m_screenSize;
-  int m_stars[10][2];
-  int m_phases[10];
+  int static const m_starQuantity=10;
+  int static const m_coordQuantity=2;
+  int m_stars[m_starQuantity][m_coordQuantity];
+  int m_phases[m_starQuantity];
   QOpenGLTexture * m_texture = nullptr;
   QOpenGLTexture * m_starTexture = nullptr;
   QOpenGLTexture * m_gunTexture = nullptr;

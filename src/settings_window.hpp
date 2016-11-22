@@ -1,5 +1,3 @@
-#ifndef SETTINGS_WINDOW_HPP
-#define SETTINGS_WINDOW_HPP
 #pragma once
 
 #include <QApplication>
@@ -31,6 +29,3 @@ public slots:
 
 
 };
-
-
-#endif // GAME_WINDOW_H

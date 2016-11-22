@@ -1,5 +1,4 @@
-#ifndef DEF_SET_CUS_SET_HPP
-#define DEF_SET_CUS_SET_HPP
+#pragma once
 
 namespace default_settings
 {
@@ -15,4 +14,3 @@ namespace custom_settings
   int cus_w = 0;
 }
 
-#endif // DEF_SET_CUS_SET_HPP

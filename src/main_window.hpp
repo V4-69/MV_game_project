@@ -1,6 +1,4 @@
 #pragma once
-#ifndef MYMAINWINDOW_H
-#define MYMAINWINDOW_H
 
 #include <QPushButton>
 #include <QMessageBox>
@@ -69,4 +67,4 @@ public slots:
     sw->show();
   }
 };
-#endif
+

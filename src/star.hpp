@@ -1,5 +1,3 @@
-#ifndef STAR_HPP
-#define STAR_HPP
 #pragma once
 
 
@@ -36,6 +34,3 @@ private:
   int m_modelViewProjectionUniform = 0;
   int m_textureUniform = 0;
 };
-
-
-#endif // STAR_HPP

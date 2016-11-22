@@ -1,6 +1,3 @@
-#ifndef GAME_WINDOW_H
-#define GAME_WINDOW_H
-
 #pragma once
 #include <QApplication>
 #include <QMainWindow>
@@ -29,5 +26,3 @@ private:
   QGridLayout * m_layout = nullptr;
   QOpenGLWidget * m_glWidget = nullptr;
 };
-
-#endif // GAME_WINDOW_H
