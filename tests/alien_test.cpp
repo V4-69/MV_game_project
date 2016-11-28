@@ -1,5 +1,6 @@
 ﻿#include "gtest/gtest.h"
 #include "alien.hpp"
+#include "factory.hpp"
 #include <sstream>
 #include <unordered_set>
 
@@ -147,4 +148,26 @@ TEST(alien_test, test_logger)
   sOut3 << emptyS << std::endl << create << std::endl << a2 << std::endl << emptyS <<std::endl<<std::endl;
   sOut3 << emptyS << std::endl << create << std::endl << a3 << std::endl << emptyS <<std::endl<<std::endl;
   EXPECT_EQ(s2.str(), sOut3.str());
+}
+
+TEST(alien_test, test_factory)
+{
+  Factory factory;
+  Box2D b1 = DEFAULT_ALIEN_BOX;
+  auto a1 = factory.Create<Alien>();
+  EXPECT_EQ( a1->HealthPoints(), DEFAULT_ALIEN_HP );
+  EXPECT_EQ( a1->Box(), b1);
+  
+  auto a2 = factory.Create<Alien>(5);
+  EXPECT_EQ( a2->HealthPoints(), 5);
+  EXPECT_EQ( a2->Box(), b1);
+
+  Box2D b2 = Box2D( Point2D(5, 5),Point2D(7, 7) );
+  auto a3 = factory.Create<Alien>(b2);
+  EXPECT_EQ( a3->HealthPoints(), DEFAULT_ALIEN_HP );
+  EXPECT_EQ( a3->Box(), b2 );
+
+  auto a4 = factory.Create<Alien>(b2, 5);
+  EXPECT_EQ( a4->HealthPoints(), 5);
+  EXPECT_EQ( a4->Box(), b2 );
 }

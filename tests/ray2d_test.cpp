@@ -1,5 +1,6 @@
 #include "gtest/gtest.h"
 #include "ray2d.hpp"
+#include "factory.hpp"
 #include <sstream>
 #include <unordered_set>
 
@@ -142,4 +143,27 @@ TEST(ray2d_test, test_logger)
   sOut3 << emptyS << std::endl << b1 << std::endl << emptyS << "\n\n";
   sOut3 << emptyS << std::endl << b2 << std::endl << emptyS << "\n\n";
   EXPECT_EQ(s3.str(), sOut3.str());
+}
+
+TEST(ray2d_test, test_factory)
+{
+  Factory factory;
+  auto r1 = factory.Create<Ray2D>();
+  Point2D p1;
+  Point2D v1 = {1.0f, 0.0f};
+
+  EXPECT_EQ(r1->origin(), p1);
+  EXPECT_EQ(r1->direction(), v1);
+
+  auto r2 = factory.Create<Ray2D>(1.0f, 2.0f, 3.0f, 4.0f);
+  Point2D p2(1.0f, 2.0f);
+  Point2D v2(0.6f, 0.8f);
+  EXPECT_EQ(r2->origin(), p2);
+  EXPECT_EQ(r2->direction(), v2);
+
+  Point2D v3(0.0f, 1.0f);
+  Point2D p3(2.0f, 3.0f);
+  auto r3 = factory.Create<Ray2D>(p3, v3);
+  EXPECT_EQ(r3->origin(), p3);
+  EXPECT_EQ(r3->direction(), v3);
 }

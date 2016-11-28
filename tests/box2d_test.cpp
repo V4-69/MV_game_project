@@ -1,5 +1,6 @@
 ﻿#include "gtest/gtest.h"
 #include "box2d.hpp"
+#include "factory.hpp"
 #include <sstream>
 #include <unordered_set>
 
@@ -181,4 +182,20 @@ TEST(box2d_test, test_logger)
   sOut3 << emptyS << std::endl << b1 << std::endl << emptyS << "\n\n";
   sOut3 << emptyS << std::endl << b2 << std::endl << emptyS << "\n\n";
   EXPECT_EQ(s3.str(), sOut3.str());
+}
+
+TEST(box2d_test, test_factory)
+{
+  Factory factory;
+  auto b1 = factory.Create<Box2D>();
+  Point2D p1;
+  Point2D p2 = { 1.0f, 1.0f };
+  EXPECT_EQ(b1->boxMin(), p1);
+  EXPECT_EQ(b1->boxMax(), p2);
+
+  Point2D p2_1 = { 1.3f, 2.5f };
+  Point2D p2_2 = { 2.0f, 3.5f };
+  auto b2 = factory.Create<Box2D>(p2_1, p2_2);
+  EXPECT_EQ(b2->boxMin(), p2_1);
+  EXPECT_EQ(b2->boxMax(), p2_2);
 }

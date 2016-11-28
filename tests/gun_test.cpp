@@ -2,6 +2,7 @@
 
 #include "gtest/gtest.h"
 #include "gun.hpp"
+#include "factory.hpp"
 #include <sstream>
 #include <unordered_set>
 
@@ -149,4 +150,26 @@ TEST(gun_test, test_logger)
   sOut3 << emptyS << std::endl << create << std::endl << a2 << std::endl << emptyS <<std::endl<<std::endl;
   sOut3 << emptyS << std::endl << create << std::endl << a3 << std::endl << emptyS <<std::endl<<std::endl;
   EXPECT_EQ(s2.str(), sOut3.str());
+}
+
+TEST(gun_test, test_factory)
+{
+  Factory factory;
+  Box2D b1 = DEFAULT_GUN_BOX;
+  auto g1 = factory.Create<Gun>();
+  EXPECT_EQ( g1->HealthPoints(), DEFAULT_GUN_HP );
+  EXPECT_EQ( g1->Box(), b1);
+  
+  auto g2 = factory.Create<Gun>(5);
+  EXPECT_EQ( g2->HealthPoints(), 5);
+  EXPECT_EQ( g2->Box(), b1);
+
+  Box2D b2 = Box2D( Point2D(5, 5), Point2D(7, 7) );
+  auto g3 = factory.Create<Gun>(b2);
+  EXPECT_EQ( g3->HealthPoints(), DEFAULT_GUN_HP );
+  EXPECT_EQ( g3->Box(), b2 );
+
+  auto g4 = factory.Create<Gun>( b2, 5 );
+  EXPECT_EQ( g4->HealthPoints(), 5 );
+  EXPECT_EQ( g4->Box(), b2 );
 }
