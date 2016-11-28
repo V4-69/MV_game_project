@@ -1,10 +1,6 @@
 #pragma once
 #include "settings_window.hpp"
 
-#include <fstream>
-//#include "C:\Users\Max\Desktop\template-window_demo\template-window_demo\3party\pugixml\src\pugixml.hpp"
-typedef void (QWidget::*QWidgetVoidSlot)();
-
 SettingsWindow::SettingsWindow()
 {
   centralWidget = new QWidget(this);
